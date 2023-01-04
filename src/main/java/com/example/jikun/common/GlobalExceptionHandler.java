@@ -1,4 +1,4 @@
-package com.example.jikun.config;
+package com.example.jikun.common;
 
 import com.example.jikun.common.Result;
 import lombok.extern.slf4j.Slf4j;

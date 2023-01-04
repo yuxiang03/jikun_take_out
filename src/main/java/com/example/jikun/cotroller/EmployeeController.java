@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -48,12 +47,6 @@ public class EmployeeController {
     public Result<String> save(HttpServletRequest request,@RequestBody Employee employee){
         //设置初始密码为123456
         employee.setPassword(BCrypt.hashpw("123456",SALT));
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        //获取当前用户id
-        Long empId = (Long) request.getSession().getAttribute("employee");
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
         employeeService.save(employee);
         return Result.success("新增员工成功");
     }
@@ -75,9 +68,9 @@ public class EmployeeController {
 
     @PutMapping
     public Result<String> update(HttpServletRequest request,@RequestBody Employee employee){
-        Long empId = (Long) request.getSession().getAttribute("employee");
+        /*Long empId = (Long) request.getSession().getAttribute("employee");
         employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empId);
+        employee.setUpdateUser(empId);*/
         employeeService.updateById(employee);
         return Result.success("员工信息修改成功");
     }
